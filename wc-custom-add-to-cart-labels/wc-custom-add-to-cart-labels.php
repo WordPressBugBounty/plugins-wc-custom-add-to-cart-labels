@@ -3,264 +3,39 @@
 /*
  Plugin Name: WC Custom Add to Cart labels
  Plugin URI: https://profiles.wordpress.org/rynald0s
- Description: This plugin lets you change the "add to cart" labels on single product pages (per product type) and archive / shop page (per product type). 
+ Description: Customize add-to-cart labels and styles for each WooCommerce product type. Easily adjust button text, colors, font size, borders, and border radius on single product and shop/archive pages via a dedicated WooCommerce settings tab. 
  Author: Rynaldo Stoltz
- Author URI: https://github.com/rynaldos
- Version: 1.3
+ Author URI: https://orcawp.com
+ Version: 1.5
  License: GPLv3 or later License
  URI: http://www.gnu.org/licenses/gpl-3.0.html
  */
 
-if ( ! defined( 'ABSPATH' ) ) { 
-    exit; // Exit if accessed directly
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
 }
 
-/**
- * Check if WooCommerce is active
- **/
-
-if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
-
-/**
- * Add settings
- */
-
-function catcl_section( $sections ) {
-    $sections['catcl_section'] = __( 'Add to cart button labels', 'woocommerce' );
-    return $sections;
+// Check if WooCommerce is active.
+if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+    return;
 }
 
-add_filter( 'woocommerce_get_sections_products', 'catcl_section' );
+// Define plugin constants.
+define( 'WC_CUSTOM_ATC_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'WC_CUSTOM_ATC_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
-
-function catcl_settings( $settings, $current_section ) {
-
-    
-    /**
-     * Check the current section is what we want
-     **/
-
-    if ( 'catcl_section' === $current_section ) {
-
-        $catcl_settings[] = array( 'title' => __( 'Change the "add to cart" button label on single product pages (per product type)', 'woocommerce' ), 'type' => 'title', 'id' => 'wc_atc_change' );
-
-        $catcl_settings[] = array(
-                'title'    => __( 'Simple products', 'woocommerce' ),
-                'desc' => 'This will change the "add to cart" label shown on single product page of simple product type',
-                'id'       => 'simple_button_text_single',
-                'type'     => 'text',
-                'placeholder' => 'Add to cart',
-                'css'      => 'min-width:350px;',
-            );
-
-        $catcl_settings[] = array(
-                'title'    => __( 'Grouped products', 'woocommerce' ),
-                'desc' => 'This will change the "add to cart" label shown on single product page of grouped product type',
-                'id'       => 'grouped_button_text_single',
-                'type'     => 'text',
-                'placeholder' => 'Add to cart',
-                'css'      => 'min-width:350px;',
-            );
-
-        $catcl_settings[] = array(
-                'title'    => __( 'External products', 'woocommerce' ),
-                'desc' => 'This will change the "add to cart" label shown on single product page of external product type',
-                'id'       => 'external_button_text_single',
-                'type'     => 'text',
-                'placeholder' => 'Add to cart',
-                'css'      => 'min-width:350px;',
-            );
-
-        $catcl_settings[] = array(
-                'title'    => __( 'Variable products', 'woocommerce' ),
-                'desc' => 'This will change the "add to cart" label shown on single product page of variable product type',
-                'id'       => 'variable_button_text_single',
-                'type'     => 'text',
-                'placeholder' => 'Add to cart',
-                'css'      => 'min-width:350px;',
-            );
-
-        $catcl_settings[] = array(
-                'title'    => __( 'Bookable products', 'woocommerce' ),
-                'desc' => 'This will change the "add to cart" label shown on single product page of bookable product type',
-                'id'       => 'booking_button_text_single',
-                'type'     => 'text',
-                'placeholder' => 'Add to cart',
-                'css'      => 'min-width:350px;',
-            );
-
-        $catcl_settings[] = array(
-                'title'    => __( 'Subscription products', 'woocommerce-subscriptions' ),
-                'desc' => 'This will change the "add to cart" label shown on single product page of subscription product type',
-                'id'       => 'subs_button_text_single',
-                'type'     => 'text',
-                'placeholder' => 'Sign up now',
-                'css'      => 'min-width:350px;',
-            );
-
-        $catcl_settings[] = array(
-                'title'    => __( 'Variable subscription products', 'woocommerce-subscriptions' ),
-                'desc' => 'This will change the "add to cart" label shown on the single product page of variable subscription product type',
-                'id'       => 'subs_var_button_text_single',
-                'type'     => 'text',
-                'placeholder' => 'Sign up now',
-                'css'      => 'min-width:350px;',
-            );
-
-        $catcl_settings[] = array( 'type' => 'sectionend', 'id' => 'wc_atc_change' );
-
-        $catcl_settings[] = array( 'title' => __( 'Change the "add to cart" button label on archive / shop page (per product type)', 'woocommerce' ), 'type' => 'title', 'id' => 'wc_atc_change' );
-
-        $catcl_settings[] = array(
-                'title'    => __( 'Simple products (archive)', 'woocommerce' ),
-                'desc' => 'This will change the "add to cart" label on simple products that are shown on the archive page',
-                'id'       => 'simple_button_text',
-                'type'     => 'text',
-                'placeholder' => 'Add to cart',
-                'css'      => 'min-width:350px;',
-            );
-
-        $catcl_settings[] = array(
-                'title'    => __( 'Grouped products (archive)', 'woocommerce' ),
-                'desc' => 'This will change the "add to cart" label on grouped products that are shown on the archive page',
-                'id'       => 'grouped_button_text',
-                'type'     => 'text',
-                'placeholder' => 'Add to cart',
-                'css'      => 'min-width:350px;',
-            );
-
-        $catcl_settings[] = array(
-                'title'    => __( 'External products (archive)', 'woocommerce' ),
-                'desc' => 'This will change the "add to cart" label on external products that are shown on the archive page',
-                'id'       => 'external_button_text',
-                'type'     => 'text',
-                'placeholder' => 'Add to cart',
-                'css'      => 'min-width:350px;',
-            );
-
-        $catcl_settings[] = array(
-                'title'    => __( 'Variable products (archive)', 'woocommerce' ),
-                'desc' => 'This will change the "add to cart" label on variable products that are shown on the archive page',
-                'id'       => 'variable_button_text',
-                'type'     => 'text',
-                'placeholder' => 'Add to cart',
-                'css'      => 'min-width:350px;',
-            );
-
-        $catcl_settings[] = array(
-                'title'    => __( 'Bookable products (archive)', 'woocommerce' ),
-                'desc' => 'This will change the "add to cart" label on bookable products that are shown on the archive page',
-                'id'       => 'booking_button_text',
-                'type'     => 'text',
-                'placeholder' => 'Add to cart',
-                'css'      => 'min-width:350px;',
-            );
-
-        $catcl_settings[] = array(
-                'title'    => __( 'Subscription products (archive)', 'woocommerce-subscriptions' ),
-                'desc' => 'This will change the "add to cart" label on subscription products that are shown on the archive page',
-                'id'       => 'subs_button_text',
-                'type'     => 'text',
-                'placeholder' => 'Sign up now',
-                'css'      => 'min-width:350px;',
-            );
-
-        $catcl_settings[] = array(
-                'title'    => __( 'Variable subscription products (archive)', 'woocommerce-subscriptions' ),
-                'desc' => 'This will change the "add to cart" label on variable subscription products that are shown on the archive page',
-                'id'       => 'subs_var_button_text',
-                'type'     => 'text',
-                'placeholder' => 'Sign up now',
-                'css'      => 'min-width:350px;',
-            );
-
-        $catcl_settings[] = array( 'type' => 'sectionend', 'id' => 'wc_atc_change' );
-        return $catcl_settings;
-} else {
-        return $settings;
-    }
-
+// Include our required classes.
+if ( ! class_exists( 'WC_Custom_ATC_Admin' ) ) {
+    require_once WC_CUSTOM_ATC_PLUGIN_DIR . 'includes/class-wc-custom-atc-admin.php';
+}
+if ( ! class_exists( 'WC_Custom_ATC_Frontend' ) ) {
+    require_once WC_CUSTOM_ATC_PLUGIN_DIR . 'includes/class-wc-custom-atc-frontend.php';
 }
 
-add_filter( 'woocommerce_product_add_to_cart_text' , 'custom_woocommerce_product_add_to_cart_text' );
-add_filter( 'woocommerce_product_single_add_to_cart_text', 'custom_woocommerce_product_add_to_cart_text' );
-add_filter( 'woocommerce_booking_single_add_to_cart_text', 'custom_woocommerce_product_add_to_cart_text' );
-
-function custom_woocommerce_product_add_to_cart_text($text) {
-    global $product;
-
-    if (!isset ($product) || !is_object ($product))
-        return $text;
-
-    $product_type = $product->get_type();
-
-
-    if (is_product()) {
-
-    switch ( $product_type ) {
-        case 'simple':
-            return __( $options = catcl_get_settings( 'simple_button_text_single'), 'woocommerce' );
-        break;
-        case 'grouped':
-            return __( $options = catcl_get_settings( 'grouped_button_text_single'), 'woocommerce' );
-        break;
-        case 'external':
-            return __( $options = catcl_get_settings( 'external_button_text_single'), 'woocommerce' );
-        break;
-        case 'variable':
-            return __( $options = catcl_get_settings( 'variable_button_text_single'), 'woocommerce' );
-        break;
-        case 'booking':
-            return __( $options = catcl_get_settings( 'booking_button_text_single'), 'woocommerce-bookings' );
-        break;
-        case 'subscription':
-            return __( $options = catcl_get_settings( 'subs_button_text_single'), 'woocommerce-subscriptions' );
-        break;
-        case 'variable-subscription':
-            return __( $options = catcl_get_settings( 'subs_var_button_text_single'), 'woocommerce-subscriptions' );
-        break;
-        default:
-            return __( 'Read more', 'woocommerce' );
-        } 
-    }
-else {
-
-    switch ( $product_type ) {
-        case 'simple':
-            return __( $options = catcl_get_settings( 'simple_button_text'), 'woocommerce' );
-        break;
-        case 'grouped':
-            return __( $options = catcl_get_settings( 'grouped_button_text'), 'woocommerce' );
-        break;
-        case 'external':
-            return __( $options = catcl_get_settings( 'external_button_text'), 'woocommerce' );
-        break;
-        case 'variable':
-            return __( $options = catcl_get_settings( 'variable_button_text'), 'woocommerce' );
-        break;
-        case 'booking':
-            return __( $options = catcl_get_settings( 'booking_button_text'), 'woocommerce-bookings' );
-        break;
-        case 'subscription':
-            return __( $options = catcl_get_settings( 'subs_button_text'), 'woocommerce-subscriptions' );
-        break;
-        case 'variable-subscription':
-            return __( $options = catcl_get_settings( 'subs_var_button_text'), 'woocommerce-subscriptions' );
-        break;
-
-        default:
-            return __( 'Read more', 'woocommerce' );
-            }
-        } 
-    }
-}
-
-add_filter( 'woocommerce_get_settings_products','catcl_settings', 10, 2 );
-
-function catcl_get_settings( $key ) {
-    $saved = get_option( $key );
-    if( $saved && '' != $saved ) {
-        return $saved;
-    }
-    return 'Add to cart';
+// Initialize the plugin.
+add_action( 'plugins_loaded', 'wc_custom_atc_init' );
+function wc_custom_atc_init() {
+    WC_Custom_ATC_Admin::init();
+    WC_Custom_ATC_Frontend::init();
 }
