@@ -1,10 +1,10 @@
 === Custom Add to Cart labels for WooCommerce ===
 
-Contributors: rynald0s
+Contributors: saadiqbal, wpexpertsio
 Tags: add to cart, add to cart label, woocommerce, woocommerce add to cart, add to cart text, change add to cart, per product type, single product, single product page, archives, shop page, change button, change label, button label, simple, variable, grouped, external
 Requires at least: 6.2
 Tested up to: 6.7
-Stable tag: 1.5.1
+Stable tag: 1.5.2
 WC requires at least: 3.0
 WC tested up to: 9.7
 License: GPLv3 or later License
@@ -98,3 +98,7 @@ A: You can submit a issues / feature requests on the [Public GitHub Repository](
 = 1.5.1 =
 
 * Updated plugin name
+
+= 1.5.2 =
+
+* Changed plugin ownership
