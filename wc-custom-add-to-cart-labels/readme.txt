@@ -3,10 +3,10 @@
 Contributors: saadiqbal, wpexpertsio
 Tags: add to cart, add to cart label, woocommerce, woocommerce add to cart, add to cart text, change add to cart, per product type, single product, single product page, archives, shop page, change button, change label, button label, simple, variable, grouped, external
 Requires at least: 6.2
-Tested up to: 6.7
-Stable tag: 1.5.2
+Tested up to: 6.8
+Stable tag: 1.5.3
 WC requires at least: 3.0
-WC tested up to: 9.7
+WC tested up to: 10.0
 License: GPLv3 or later License
 URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -102,3 +102,6 @@ A: You can submit a issues / feature requests on the [Public GitHub Repository](
 = 1.5.2 =
 
 * Changed plugin ownership
+
+= 1.5.3 =
+* Tested up to WordPress 6.8 and WooCommerce 10.0
