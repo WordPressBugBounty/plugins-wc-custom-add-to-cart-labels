@@ -5,12 +5,12 @@
  Description: This plugin lets you change the "add to cart" labels on single product pages (per product type) and archive/shop pages (per product type).
  Author: WPExperts.io
  Author URI: https://github.com/rynaldos
- Version: 1.5.3
+ Version: 1.5.4
  License: GPLv3 or later License
  Requires at least: 6.2
- Tested up to: 6.7
- Requires Plugins: woocommerce
- License URI: http://www.gnu.org/licenses/gpl-3.0.html
+ Tested up to: 7.0
+ License: GPLv3 or later
+ License URI: https://www.gnu.org/licenses/gpl-3.0.html
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
