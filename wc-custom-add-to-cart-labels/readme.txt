@@ -3,7 +3,7 @@ Contributors: saadiqbal, wpexpertsio
 Tags: add to cart, add to cart label, woocommerce, woocommerce add to cart, add to cart text, change add to cart, per product type, single product page, shop page, archive page, change button, change label, button text, buy now, custom button label, woocommerce button, simple product, variable product, grouped product, external product, bookable, subscription
 Requires at least: 6.2
 Tested up to: 7.0
-Stable tag: 1.5.4
+Stable tag: 1.5.5
 WC requires at least: 3.0
 WC tested up to: 10.8.1
 License: GPLv3 or later
@@ -154,6 +154,9 @@ To override programmatically, use a higher priority (lower number):
 `add_filter( 'woocommerce_product_single_add_to_cart_text', 'my_custom_function', 5, 2 );`
 
 == Changelog ==
+
+= 1.5.5 =
+* Removed Promotional Screen.
 
 = 1.5.4 =
 * Tested up to WordPress 7.0 and WooCommerce 10.8.1
